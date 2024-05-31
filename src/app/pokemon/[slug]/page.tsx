@@ -39,7 +39,7 @@ const PokemonDetails = ({ pokemon, color }: PokemonDetailsProps) => {
             case 'evolution':
                 return <Evolution pokemon={pokemon} />
         }
-    }, [currentOption, pokemon])
+    }, [currentOption, pokemon, color])
 
     return (
         <div className={style.wrapperDetails}>

@@ -7,16 +7,6 @@ const usePokemonList = (pokemonSearch: string) => {
     const [pokemons, setPokemons] = useState<IPokemon[]>([])
     const [nextUrl, setNextUrl] = useState<string>("/pokemon")
 
-    useEffect(() => {
-        const isSearch = pokemonSearch.length > 2
-
-        if (isSearch) {
-            handleSearchPokemons()
-        }
-        else {
-            fetchPokemonsDefault()
-        }
-    }, [pokemonSearch])
 
     async function mainFetch(url: string) {
         const pokemonRepositorio = new PokemonRepositorio()
@@ -41,6 +31,18 @@ const usePokemonList = (pokemonSearch: string) => {
         setPokemons(pokemonsSearch);
     }, [pokemonSearch]);
 
+    useEffect(() => {
+        const isSearch = pokemonSearch.length > 2
+
+        if (isSearch) {
+            handleSearchPokemons()
+        }
+        else {
+            fetchPokemonsDefault()
+        }
+    }, [pokemonSearch, handleSearchPokemons, fetchPokemonsDefault])
+
+
     const handlePagination = useCallback(async () => {
         const { listaPokemons, next } = await mainFetch(nextUrl)
 
@@ -49,7 +51,7 @@ const usePokemonList = (pokemonSearch: string) => {
             setPokemons([...pokemons, ...listaPokemons])
         }
 
-    }, [nextUrl])
+    }, [pokemons, nextUrl])
 
     return {
         pokemons,

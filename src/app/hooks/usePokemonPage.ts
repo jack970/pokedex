@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import icons from "../components/Icons"
 import { IPokemon } from "../interfaces/pokemon.interface"
 import PokemonRepositorio from "../repositorio/PokemonRepositorio"
@@ -9,11 +9,7 @@ const usePokemonPage = (slugPokemon: string) => {
     const [background, setBackground] = useState<string>("")
     const [color, setColor] = useState<string>("")
 
-    useEffect(() => {
-        fetchPokemon(slugPokemon)
-    }, [])
-
-    const fetchPokemon = async (name: string) => {
+    const fetchPokemon = useCallback(async (name: string) => {
         const repositorio = new PokemonRepositorio()
         const pegaPokemon = new PegarPokemonService(repositorio)
         const responsePokemon = await pegaPokemon.executar(name);
@@ -25,7 +21,11 @@ const usePokemonPage = (slugPokemon: string) => {
 
         })
         pegaColor(responsePokemon)
-    }
+    }, [])
+
+    useEffect(() => {
+        fetchPokemon(slugPokemon)
+    }, [fetchPokemon, slugPokemon])
 
     const pegaColor = (pokemon: IPokemon) => {
         const { name } = pokemon.types[0].type

@@ -11,10 +11,6 @@ const usePokemonEvolution = (pokemon: IPokemon) => {
     const [especie, setEspecie] = useState<IEspecie>()
     const [evolution, setEvolution] = useState<PokemonEvolvsProps[]>()
 
-    useEffect(() => {
-        fetchPokemon(pokemon)
-    }, [])
-
     const handleNameSpecies = useCallback(
         ({
             species,
@@ -52,7 +48,7 @@ const usePokemonEvolution = (pokemon: IPokemon) => {
         ))
     }
 
-    async function fetchPokemon(pokemon: IPokemon) {
+    const fetchPokemon = useCallback(async (pokemon: IPokemon) => {
         const repositorio = new PokemonRepositorio();
 
         const speciesService = new PegarEspecieService(repositorio)
@@ -68,7 +64,12 @@ const usePokemonEvolution = (pokemon: IPokemon) => {
             setEspecie(resultSpecies)
             setEvolution(pokemonsEvols)
         }
-    }
+    }, [handleNameSpecies])
+
+    useEffect(() => {
+        fetchPokemon(pokemon)
+    }, [pokemon, fetchPokemon])
+
 
     return {
         especie,

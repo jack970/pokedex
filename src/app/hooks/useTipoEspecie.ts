@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { IPokemon } from "../interfaces/pokemon.interface"
 import PokemonRepositorio from "../repositorio/PokemonRepositorio"
 import PegarEspecieService from "../services/PegarEspecie"
@@ -11,11 +11,7 @@ const useTipoEspecie = (pokemon: IPokemon) => {
     const [especies, setEspecies] = useState<IEspecie>()
     const [weakness, setWeakness] = useState<DoubleDamage[]>()
 
-    useEffect(() => {
-        fetchPokemon(pokemon)
-    }, [])
-
-    async function fetchPokemon(pokemon: IPokemon) {
+    const fetchPokemon = useCallback(async (pokemon: IPokemon) => {
         const repositorio = new PokemonRepositorio()
 
         const pegarEspecie = new PegarEspecieService(repositorio)
@@ -26,7 +22,11 @@ const useTipoEspecie = (pokemon: IPokemon) => {
 
         setEspecies(especie)
         setWeakness(tipo.damage_relations.double_damage_from)
-    }
+    }, [])
+
+    useEffect(() => {
+        fetchPokemon(pokemon)
+    }, [pokemon, fetchPokemon])
 
     return {
         especies,
