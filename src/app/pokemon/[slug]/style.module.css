@@ -1,0 +1,120 @@
+.wrapperPage {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: rgb(139, 190, 138);
+}
+
+.titlePage {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    z-index: 2;
+}
+
+.titlePage h1 {
+    font-weight: bold;
+    font-size: 12vw;
+    text-align: center;
+    text-transform: uppercase;
+    background: -webkit-linear-gradient(-90deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.09) 60%) text;
+    -webkit-text-stroke: 4px transparent;
+    color: rgb(139, 190, 138);
+}
+
+.wrapperPage>a {
+    position: fixed;
+    top: 6vw;
+    left: 1vw;
+    z-index: 10;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    color: rgb(255, 255, 255);
+}
+
+.wrapperDetails {
+    flex: 1 1 0%;
+    display: flex;
+    flex-direction: column;
+}
+
+.cardSubDetail {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    align-self: center;
+    margin-top: 14vh;
+}
+
+.cardSubDetail>img {
+    z-index: 3;
+}
+
+.cardSubDetail>div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 40px;
+}
+
+.cardSubDetail div span {
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.cardTitle {
+    color: #fff;
+    font-size: 5rem;
+    text-transform: capitalize;
+}
+
+.cardId {
+    color: rgba(23, 23, 27, 0.6);
+    font-size: 30px;
+}
+
+.cardTypes {
+    color: #fff;
+    display: flex;
+    column-gap: 1rem;
+    margin-top: .5rem;
+}
+
+.cardType {
+    display: flex;
+    font-weight: 500;
+    font-size: 1.5rem;
+    column-gap: .4rem;
+    align-items: center;
+    background-color: green;
+    border-radius: .2rem;
+    padding: .4rem;
+}
+
+.options {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    justify-content: space-around;
+    margin: auto 0px 10px;
+    font-size: 2.5rem;
+    cursor: pointer;
+    text-transform: capitalize;
+    /* font-weight: bold; */
+    color: #fff;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #fff;
+    height: 27rem;
+    border-top-left-radius: 3rem;
+    border-top-right-radius: 3rem;
+}
