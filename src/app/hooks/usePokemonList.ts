@@ -5,7 +5,7 @@ import { IPokemon } from "../interfaces/pokemon.interface"
 
 const usePokemonList = (pokemonSearch: string) => {
     const [pokemons, setPokemons] = useState<IPokemon[]>([])
-    const [nextUrl, setNextUrl] = useState<string>("/pokemon")
+    const [nextUrl, setNextUrl] = useState<string>("/pokemon?offset=9&limit=9")
 
 
     async function mainFetch(url: string) {
@@ -31,18 +31,6 @@ const usePokemonList = (pokemonSearch: string) => {
         setPokemons(pokemonsSearch);
     }, [pokemonSearch]);
 
-    useEffect(() => {
-        const isSearch = pokemonSearch.length > 2
-
-        if (isSearch) {
-            handleSearchPokemons()
-        }
-        else {
-            fetchPokemonsDefault()
-        }
-    }, [pokemonSearch, handleSearchPokemons, fetchPokemonsDefault])
-
-
     const handlePagination = useCallback(async () => {
         const { listaPokemons, next } = await mainFetch(nextUrl)
 
@@ -52,6 +40,18 @@ const usePokemonList = (pokemonSearch: string) => {
         }
 
     }, [pokemons, nextUrl])
+
+    useEffect(() => {
+        const isSearch = pokemonSearch.length >= 2
+
+        if (isSearch) {
+            handleSearchPokemons()
+        }
+        else {
+            fetchPokemonsDefault()
+        }
+    }, [pokemonSearch, handleSearchPokemons, fetchPokemonsDefault])
+
 
     return {
         pokemons,
