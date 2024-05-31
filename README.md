@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">Pokédex</h1>
 
-## Getting Started
+<p align="center">
+  <img alt="Layout da aplicação" width="100%" src="./.github/home_page.png" />
+</p>
 
-First, run the development server:
+## 👁️‍🗨️ Visão Geral
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Este é um projeto frontend que comunica com a api PokeAPI e criar uma listagem e visualização de pokémons
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Com ele é possível :
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- [x] **Listagem dos pokémons**: Listar os pokémons com o uso da API REST.
+- [x] **Ampliar a listagem dos pokémons**: Método para adicionar mais pokémons a lista, ampliando-se a quantia de pokémons mostrada ao usuário.
+- [x] **Buscar pokémons**: Método para filtrar os pokémons a partir do seu nome.
+- [x] **Efeito no cartão do pokémon**: Criar uma animação ao usuário apresentar foco no cartão do pokémon.
+- [x] **Selecionar pokémon**: Criar uma página na aplicação com mais detalhes sobre o pokémon escolhido.
+- [x] **Criar seções do pokémons**: Separar as informações do pokémon em três seções: Sobre, Estatísticas, Evoluções.
+- [x] **Seção Sobre**: Dados básicos sobre o pokémon, como altura, peso, fraquezas.
+- [x] **Seção Estatísticas**: Pontos de batalha do pokémon, como vida, ataque, defesa, velocidade, especial ataque e especial defesa.
+- [x] **Seção Evoluções**: Construir a árvore de evolução do pokémon
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
+### :rocket: Tecnologias
+-  [NextJs](https://nextjs.org/)
+-  [React](https://pt-br.reactjs.org/)
+-  [React-Icons](https://react-icons.netlify.com/)
+-  [Axios](https://github.com/axios/axios)
+-  [TypeScript](https://www.typescriptlang.org/)
