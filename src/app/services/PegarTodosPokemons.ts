@@ -1,4 +1,4 @@
-import CasoDeUso from "../CasoDeUso";
+import { CasoDeUsoPegarTodosPokemons } from "../CasoDeUso";
 import { IndexedPokemon, IPokemon } from "../interfaces/pokemon.interface";
 import PokemonRepositorio from "../repositorio/PokemonRepositorio";
 
@@ -7,7 +7,7 @@ interface IPegarTodosPokemons {
     next: string | null
 }
 
-export default class PegarTodosPokemonsService implements CasoDeUso<string, IPegarTodosPokemons> {
+export default class PegarTodosPokemonsService implements CasoDeUsoPegarTodosPokemons<string, IPegarTodosPokemons> {
     constructor(private readonly repositorio: PokemonRepositorio) { }
 
     async pegaPokemonPorId(idName: number | string): Promise<IPokemon> {
@@ -32,11 +32,10 @@ export default class PegarTodosPokemonsService implements CasoDeUso<string, IPeg
     async executar(url: string): Promise<IPegarTodosPokemons> {
         const response = await this.repositorio.pegarTodos(url)
 
-        const startIndex = response.next!.indexOf("/pokemon");
-        const next = response.next!.substring(startIndex)
+        const { next, results } = response
 
         const listaPokemons = await Promise.all(
-            response.results.map(async (pokemon) => await this.indexedPokemonToList(pokemon))
+            results.map(async (pokemon) => await this.indexedPokemonToList(pokemon))
         )
 
         return { listaPokemons, next }

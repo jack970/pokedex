@@ -1,6 +1,9 @@
+'use client'
+
 import Image from "next/image";
 import style from './style.module.css'
 import { FaSearch } from "react-icons/fa";
+import { useCallback, useState } from "react";
 
 interface SearchProps {
     value: string,
@@ -8,6 +11,16 @@ interface SearchProps {
 }
 
 const Header = ({ value, handleChange }: SearchProps) => {
+    const [isFocused, setIsFocused] = useState(false);
+
+    const onChangeFocus = useCallback(() => {
+        setIsFocused(true)
+    }, [])
+
+    const onChangeBlur = useCallback(() => {
+        setIsFocused(false)
+    }, [])
+
     return (
         <header className={style.header}>
             <div className={style.wrapper}>
@@ -18,8 +31,10 @@ const Header = ({ value, handleChange }: SearchProps) => {
                 <input
                     type="text"
                     value={value}
-                    placeholder="Pesquisar..."
+                    placeholder={`${isFocused ? '' : "Pesquisar..."} `}
                     onChange={(e) => handleChange(e.target.value)}
+                    onBlur={onChangeBlur}
+                    onFocus={onChangeFocus}
                 />
             </div>
         </header>

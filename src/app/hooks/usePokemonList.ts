@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react"
 import PegarTodosPokemonsService from "../services/PegarTodosPokemons"
 import PokemonRepositorio from "../repositorio/PokemonRepositorio"
 import { IPokemon } from "../interfaces/pokemon.interface"
+import PegarPokemonService from "../services/PegarPokemon"
 
 const usePokemonList = (pokemonSearch: string) => {
     const [pokemons, setPokemons] = useState<IPokemon[]>([])
@@ -21,14 +22,21 @@ const usePokemonList = (pokemonSearch: string) => {
         setPokemons(listaPokemons)
     }, [])
 
-    const handleSearchPokemons = useCallback(async () => {
-        const { listaPokemons } = await mainFetch(`/pokemon?limit=750`)
+    const fetchSearchPokemons = useCallback(async () => {
+        const pokemonRepositorio = new PokemonRepositorio()
+        const pegarPokemonService = new PegarTodosPokemonsService(pokemonRepositorio)
 
-        const pokemonsSearch = listaPokemons.filter(
-            ({ name }: IPokemon) => name.includes(pokemonSearch.toLowerCase()),
+        const { results } = await pokemonRepositorio.pegarTodos(`/pokemon?limit=750`)
+        const pokemonsFilteredName = results.filter(
+            ({ name }) => name.includes(pokemonSearch.toLowerCase()),
         );
 
-        setPokemons(pokemonsSearch);
+        const listaPokemons = await Promise.all(
+            pokemonsFilteredName.map(async (pokemon) => await pegarPokemonService.indexedPokemonToList(pokemon))
+        )
+
+        setPokemons(listaPokemons)
+
     }, [pokemonSearch]);
 
     const handlePagination = useCallback(async () => {
@@ -45,12 +53,12 @@ const usePokemonList = (pokemonSearch: string) => {
         const isSearch = pokemonSearch.length >= 2
 
         if (isSearch) {
-            handleSearchPokemons()
+            fetchSearchPokemons()
         }
         else {
             fetchPokemonsDefault()
         }
-    }, [pokemonSearch, handleSearchPokemons, fetchPokemonsDefault])
+    }, [pokemonSearch, fetchSearchPokemons, fetchPokemonsDefault])
 
 
     return {
