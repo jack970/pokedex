@@ -18,7 +18,8 @@
 
 .listItem>strong {
     display: block;
-    width: 180px;
+    flex: 1;
+    margin-right: 2rem;
 }
 
 .title {
@@ -40,4 +41,22 @@
     margin: auto;
     width: 70%;
     height: 70%;
+}
+
+@media (max-width: 800px) {
+    .content {
+        flex-direction: column;
+    }
+
+    .wrapperList {
+        max-width: 25rem;
+        margin: 0 auto;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .title {
+        margin-top: 3rem;
+        text-align: center;
+    }
 }

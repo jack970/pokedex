@@ -72,3 +72,19 @@
     border-radius: .2rem;
     padding: .4rem;
 }
+
+@media (max-width: 1440px) {
+    .wrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 1170px) {
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        -webkit-box-align: stretch;
+        align-items: stretch;
+        gap: 50px;
+    }
+}

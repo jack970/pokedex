@@ -4,7 +4,7 @@ import PokemonRepositorio from "../repositorio/PokemonRepositorio";
 
 export default class PegarTipoService implements CasoDeUso<string, ITipo> {
     constructor(
-        private readonly repositorio: PokemonRepositorio
+        private readonly repositorio: PokemonRepositorio = new PokemonRepositorio()
     ) { }
     async executar(entrada: string): Promise<ITipo> {
         const [url] = entrada.split("/").slice(-2)

@@ -2,10 +2,10 @@ import usePokemonEvolution from '@/app/hooks/usePokemonEvolution'
 import style from './style.module.css'
 import { IPokemon } from '@/app/interfaces/pokemon.interface'
 import { PokemonEvolvsProps } from '@/app/interfaces/evolution.interface'
-import Link from 'next/link'
 import { MdOutlineCatchingPokemon } from 'react-icons/md'
-import Image from 'next/image'
 import { FaLongArrowAltRight } from 'react-icons/fa'
+import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 interface EvolutionProps {

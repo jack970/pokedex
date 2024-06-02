@@ -11,6 +11,7 @@ import Stats from "./components/Stats";
 import icons from "@/app/components/Icons";
 import usePokemonPage from "@/app/hooks/usePokemonPage";
 import Evolution from "./components/Evolution";
+import NotFound from "@/app/[not_found]/page";
 
 interface PokemonPageProps {
     params: {
@@ -44,13 +45,16 @@ const PokemonDetails = ({ pokemon, color }: PokemonDetailsProps) => {
     return (
         <div className={style.wrapperDetails}>
             <div className={style.cardSubDetail}>
-                <Image
-                    src={pokemon.sprites.other["official-artwork"].front_default}
-                    width={450} height={450}
-                    alt="Pokemon"
-                    priority
-                />
-                <div>
+                <div className={style.cardImage}>
+                    <Image
+                        src={pokemon.sprites.other["official-artwork"].front_default}
+                        alt="Pokemon"
+                        objectFit="cover"
+                        fill
+                        priority
+                    />
+                </div>
+                <div className={style.cardInfo}>
                     <span className={style.cardId}># {pokemon.id}</span>
                     <span className={style.cardTitle}>{pokemon.name}</span>
                     <div className={style.cardTypes}>
@@ -87,11 +91,11 @@ const PokemonDetails = ({ pokemon, color }: PokemonDetailsProps) => {
 }
 
 export default function PokemonPage({ params }: PokemonPageProps) {
-    const { pokemon, background, color } = usePokemonPage(params.slug)
+    const { pokemon, background, color, error } = usePokemonPage(params.slug)
 
     return (
         <>
-            {pokemon ? (
+            {pokemon && (
                 <div className={style.wrapperPage} style={{ backgroundColor: background }}>
                     <Link href="/">
                         <FaChevronLeft size={70} color="white" />
@@ -101,7 +105,10 @@ export default function PokemonPage({ params }: PokemonPageProps) {
                     </div>
                     <PokemonDetails pokemon={pokemon} color={color} />
                 </div>
-            ) : <p>Nada Encontrado!</p>}
+            )}
+            {error && (
+                <NotFound />
+            )}
         </>
     )
 }

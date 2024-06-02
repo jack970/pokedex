@@ -4,10 +4,15 @@ import PokemonRepositorio from "../repositorio/PokemonRepositorio";
 
 export default class PegarPokemonService implements CasoDeUso<string | number, IPokemon> {
     constructor(
-        private readonly repositorio: PokemonRepositorio
+        private readonly repositorio: PokemonRepositorio = new PokemonRepositorio()
     ) { }
     async executar(entrada: string | number): Promise<IPokemon> {
-        const pokemon = await this.repositorio.pegarPorId(entrada)
-        return pokemon
+        try {
+            const pokemon = await this.repositorio.pegarPorId(entrada)
+            return pokemon
+
+        } catch (error) {
+            throw error
+        }
     }
 }

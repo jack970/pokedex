@@ -1,4 +1,4 @@
-import { AxiosInstance } from "axios";
+import { AxiosError, AxiosInstance } from "axios";
 import apiClient from "./api";
 import { PokemonListResponse, IPokemon } from "../interfaces/pokemon.interface";
 import ITipo from "../interfaces/tipo.interface";
@@ -20,13 +20,30 @@ export default class PokemonRepositorio implements IPokemonRepositorio {
     }
 
     async pegarPorId(idName: number | string): Promise<IPokemon> {
-        const { data } = await this.api.get(`/pokemon/${idName}`)
-        return data
+        try {
+            const { data } = await this.api.get(`/pokemon/${idName}`)
+            return data
+
+        } catch (error) {
+            if (error instanceof AxiosError && error.response?.status === 404) {
+                throw new Error('Pokemon not found');
+            } else {
+                throw error;
+            }
+        }
     }
 
     async pegarTodos(url: string): Promise<PokemonListResponse> {
-        const { data } = await this.api.get(url)
-        return data
+        try {
+            const { data } = await this.api.get(url)
+            return data
+        } catch (error) {
+            if (error instanceof AxiosError && error.response?.status === 404) {
+                throw new Error('Pokemon List not found');
+            } else {
+                throw error;
+            }
+        }
     }
 
     async pegarTipo(idType: string | number): Promise<ITipo> {

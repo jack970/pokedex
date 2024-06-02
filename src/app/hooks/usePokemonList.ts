@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from "react"
 import PegarTodosPokemonsService from "../services/PegarTodosPokemons"
 import PokemonRepositorio from "../repositorio/PokemonRepositorio"
-import { IPokemon } from "../interfaces/pokemon.interface"
-import PegarPokemonService from "../services/PegarPokemon"
+import { IPokemon, IndexedPokemon } from "../interfaces/pokemon.interface"
 
 const usePokemonList = (pokemonSearch: string) => {
     const [pokemons, setPokemons] = useState<IPokemon[]>([])
@@ -10,8 +9,7 @@ const usePokemonList = (pokemonSearch: string) => {
 
 
     async function mainFetch(url: string) {
-        const pokemonRepositorio = new PokemonRepositorio()
-        const pegarPokemonsLista = new PegarTodosPokemonsService(pokemonRepositorio)
+        const pegarPokemonsLista = new PegarTodosPokemonsService()
         const { listaPokemons, next } = await pegarPokemonsLista.executar(url)
         return { listaPokemons, next }
     }
@@ -22,22 +20,38 @@ const usePokemonList = (pokemonSearch: string) => {
         setPokemons(listaPokemons)
     }, [])
 
-    const fetchSearchPokemons = useCallback(async () => {
-        const pokemonRepositorio = new PokemonRepositorio()
-        const pegarPokemonService = new PegarTodosPokemonsService(pokemonRepositorio)
 
-        const { results } = await pokemonRepositorio.pegarTodos(`/pokemon?limit=750`)
-        const pokemonsFilteredName = results.filter(
+    const saveLocalStorage = async () => {
+        const dataStorage = localStorage.getItem("pokemons")
+        if (!dataStorage) {
+            const pokemonRepositorio = new PokemonRepositorio()
+
+            const { results } = await pokemonRepositorio.pegarTodos(`/pokemon?limit=750`)
+            localStorage.setItem("pokemons", JSON.stringify(results))
+        }
+    }
+
+    const getLocalStorage = useCallback(async (): Promise<IndexedPokemon[]> => {
+        await saveLocalStorage()
+        const getPokemons = localStorage.getItem("pokemons")
+        return getPokemons ? JSON.parse(getPokemons) : []
+    }, [])
+
+    const fetchSearchPokemons = useCallback(async () => {
+        const dataStorage = await getLocalStorage()
+
+        const pokemonsFilteredName = dataStorage.filter(
             ({ name }) => name.includes(pokemonSearch.toLowerCase()),
         );
 
+        const pegarPokemonService = new PegarTodosPokemonsService()
         const listaPokemons = await Promise.all(
             pokemonsFilteredName.map(async (pokemon) => await pegarPokemonService.indexedPokemonToList(pokemon))
         )
 
         setPokemons(listaPokemons)
 
-    }, [pokemonSearch]);
+    }, [pokemonSearch, getLocalStorage]);
 
     const handlePagination = useCallback(async () => {
         const { listaPokemons, next } = await mainFetch(nextUrl)
@@ -48,6 +62,7 @@ const usePokemonList = (pokemonSearch: string) => {
         }
 
     }, [pokemons, nextUrl])
+
 
     useEffect(() => {
         const isSearch = pokemonSearch.length >= 2

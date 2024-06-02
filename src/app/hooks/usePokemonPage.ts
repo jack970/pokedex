@@ -1,26 +1,36 @@
 import { useCallback, useEffect, useState } from "react"
 import icons from "../components/Icons"
 import { IPokemon } from "../interfaces/pokemon.interface"
-import PokemonRepositorio from "../repositorio/PokemonRepositorio"
 import PegarPokemonService from "../services/PegarPokemon"
 
 const usePokemonPage = (slugPokemon: string) => {
-    const [pokemon, setPokemon] = useState<IPokemon>()
+    const [pokemon, setPokemon] = useState<IPokemon | null>()
     const [background, setBackground] = useState<string>("")
     const [color, setColor] = useState<string>("")
+    const [error, setError] = useState<string | null>(null)
 
     const fetchPokemon = useCallback(async (name: string) => {
-        const repositorio = new PokemonRepositorio()
-        const pegaPokemon = new PegarPokemonService(repositorio)
-        const responsePokemon = await pegaPokemon.executar(name);
-        const { weight, height } = responsePokemon
-        setPokemon({
-            ...responsePokemon,
-            weight: weight / 10,
-            height: height / 10
+        try {
+            const pegaPokemon = new PegarPokemonService()
+            const responsePokemon = await pegaPokemon.executar(name);
+            const { weight, height } = responsePokemon
+            setPokemon({
+                ...responsePokemon,
+                weight: weight / 10,
+                height: height / 10
 
-        })
-        pegaColor(responsePokemon)
+            })
+            pegaColor(responsePokemon)
+
+        } catch (error) {
+            if (error instanceof Error && error.message === 'Pokemon not found') {
+                setError('404: Pokemon not found');
+            } else {
+                setError('An unexpected error occurred');
+            }
+            setPokemon(null);
+        }
+
     }, [])
 
     useEffect(() => {
@@ -40,7 +50,8 @@ const usePokemonPage = (slugPokemon: string) => {
     return {
         pokemon,
         background,
-        color
+        color,
+        error
     }
 }
 

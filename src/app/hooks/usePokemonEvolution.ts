@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import { IPokemon } from "../interfaces/pokemon.interface";
-import PokemonRepositorio from "../repositorio/PokemonRepositorio";
 import PegarEspecieService from "../services/PegarEspecie";
 import PegarEvolutionChain from "../services/PegarEvolutionChain";
 import { EvolvesToList, PokemonEvolvsProps } from "../interfaces/evolution.interface";
@@ -49,11 +48,9 @@ const usePokemonEvolution = (pokemon: IPokemon) => {
     }
 
     const fetchPokemon = useCallback(async (pokemon: IPokemon) => {
-        const repositorio = new PokemonRepositorio();
-
-        const speciesService = new PegarEspecieService(repositorio)
-        const evolutionService = new PegarEvolutionChain(repositorio)
-        const pegarPokemonService = new PegarPokemonService(repositorio)
+        const speciesService = new PegarEspecieService()
+        const evolutionService = new PegarEvolutionChain()
+        const pegarPokemonService = new PegarPokemonService()
 
         const resultSpecies = await speciesService.executar(pokemon.species.url)
         const resultEvolution = await evolutionService.executar(resultSpecies.evolution_chain.url)

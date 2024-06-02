@@ -4,7 +4,7 @@ import PokemonRepositorio from "../repositorio/PokemonRepositorio";
 
 export default class PegarEvolutionChain implements CasoDeUso<string, IEvolutionChain> {
     constructor(
-        private readonly repositorio: PokemonRepositorio
+        private readonly repositorio: PokemonRepositorio = new PokemonRepositorio()
     ) { }
     async executar(entrada: string): Promise<IEvolutionChain> {
         const [url] = entrada.split("/").slice(-2)

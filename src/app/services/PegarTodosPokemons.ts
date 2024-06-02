@@ -8,7 +8,7 @@ interface IPegarTodosPokemons {
 }
 
 export default class PegarTodosPokemonsService implements CasoDeUsoPegarTodosPokemons<string, IPegarTodosPokemons> {
-    constructor(private readonly repositorio: PokemonRepositorio) { }
+    constructor(private readonly repositorio: PokemonRepositorio = new PokemonRepositorio()) { }
 
     async pegaPokemonPorId(idName: number | string): Promise<IPokemon> {
         const pokemon = await this.repositorio.pegarPorId(idName)
@@ -30,14 +30,19 @@ export default class PegarTodosPokemonsService implements CasoDeUsoPegarTodosPok
     }
 
     async executar(url: string): Promise<IPegarTodosPokemons> {
-        const response = await this.repositorio.pegarTodos(url)
+        try {
+            const response = await this.repositorio.pegarTodos(url)
 
-        const { next, results } = response
+            const { next, results } = response
 
-        const listaPokemons = await Promise.all(
-            results.map(async (pokemon) => await this.indexedPokemonToList(pokemon))
-        )
+            const listaPokemons = await Promise.all(
+                results.map(async (pokemon) => await this.indexedPokemonToList(pokemon))
+            )
 
-        return { listaPokemons, next }
+            return { listaPokemons, next }
+
+        } catch (error) {
+            throw error
+        }
     }
 }
