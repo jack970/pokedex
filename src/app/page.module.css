@@ -2,4 +2,26 @@
     margin: 1rem auto;
     padding: 0 5rem;
     max-width: 1600px;
+    position: relative;
+}
+
+.main>svg {
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+
+    z-index: -1;
+    height: 85vh;
+    width: auto;
+}
+
+@media (max-width: 700px) {
+    .main {
+        padding: 0 1rem;
+    }
+
+    .main>svg {
+        display: none;
+    }
 }

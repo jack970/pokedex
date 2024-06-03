@@ -41,27 +41,47 @@ function ArrowRight({ evolution }: EvolutionCardProps) {
     return (
         <div>
             <FaLongArrowAltRight size={80} opacity={.1} />
-            <p>(Level {evolution.level || 'null'})</p>
+            <p>(Level {evolution.level || 'Vazio'})</p>
+        </div>
+    )
+}
+
+interface EvolutionMapProps {
+    evolution: PokemonEvolvsProps[] | undefined;
+    error: string | null
+}
+
+function EvolutionMap({ evolution, error }: EvolutionMapProps) {
+    if (!evolution) {
+        return <h1>Carregando...</h1>
+    }
+
+    if (error) {
+        return <h1>{error}</h1>
+    }
+
+    return (
+        <div className={style.wrapper}>
+            {evolution.map((evol, index) => {
+                return (
+                    <React.Fragment key={evol.level}>
+                        {index !== 0 && (
+                            <ArrowRight evolution={evol} />
+                        )}
+                        <EvolutionCard evolution={evol} />
+                    </React.Fragment>
+                )
+            })}
         </div>
     )
 }
 
 export default function Evolution({ pokemon }: EvolutionProps) {
-    const { evolution } = usePokemonEvolution(pokemon)
+    const { evolution, error } = usePokemonEvolution(pokemon)
 
     return (
         <div className={style.wrapper}>
-            {evolution ?
-                evolution.map((evol, index) => {
-                    return (
-                        <React.Fragment key={evol.level}>
-                            {index !== 0 && (
-                                <ArrowRight evolution={evol} />
-                            )}
-                            <EvolutionCard evolution={evol} />
-                        </React.Fragment>
-                    )
-                }) : <h1>Carregando...</h1>}
+            <EvolutionMap evolution={evolution} error={error} />
         </div>
     )
 }

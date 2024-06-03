@@ -52,9 +52,10 @@ export interface IPokemon {
     height: number;
     stats: IPokemonStats[];
     sprites: {
+        front_default: string
         other: {
             "official-artwork": {
-                front_default: string
+                front_default: string | null
             }
         }
     }

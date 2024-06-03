@@ -9,7 +9,7 @@ import IEspecie from "../interfaces/especie.interface";
 const usePokemonEvolution = (pokemon: IPokemon) => {
     const [especie, setEspecie] = useState<IEspecie>()
     const [evolution, setEvolution] = useState<PokemonEvolvsProps[]>()
-
+    const [error, setError] = useState<string | null>(null)
     const handleNameSpecies = useCallback(
         ({
             species,
@@ -34,18 +34,33 @@ const usePokemonEvolution = (pokemon: IPokemon) => {
         }, []
     )
 
-    async function fetchPokemonId(handleName: PokemonEvolvsProps[], servico: PegarPokemonService) {
+    const fetchPokemonId = useCallback(async (handleName: PokemonEvolvsProps[], servico: PegarPokemonService) => {
         return await Promise.all(handleName.map(async (pokemonEvols: PokemonEvolvsProps): Promise<PokemonEvolvsProps> => {
-            const result = await servico.executar(pokemonEvols.name)
-            const { id, sprites } = result
+            try {
+                const result = await servico.executar(pokemonEvols.name)
+                const { id, sprites } = result
+                return {
+                    ...pokemonEvols,
+                    image: sprites.other["official-artwork"].front_default ||
+                        pokemon.sprites.front_default,
+                    number: `#${'000'.substr(id.toString().length)}${id}`,
+                }
+            } catch (error) {
+                if (error instanceof Error && error.message === 'Pokemon not found') {
+                    setError('Não possui evolução!');
+                } else {
+                    setError('An unexpected error occurred');
+                }
+
+            }
             return {
                 ...pokemonEvols,
-                image: sprites.other["official-artwork"].front_default,
-                number: `#${'000'.substr(id.toString().length)}${id}`,
-            }
+                image: '',
+                number: '',
+            };
         }
         ))
-    }
+    }, [])
 
     const fetchPokemon = useCallback(async (pokemon: IPokemon) => {
         const speciesService = new PegarEspecieService()
@@ -61,7 +76,7 @@ const usePokemonEvolution = (pokemon: IPokemon) => {
             setEspecie(resultSpecies)
             setEvolution(pokemonsEvols)
         }
-    }, [handleNameSpecies])
+    }, [handleNameSpecies, fetchPokemonId])
 
     useEffect(() => {
         fetchPokemon(pokemon)
@@ -70,7 +85,8 @@ const usePokemonEvolution = (pokemon: IPokemon) => {
 
     return {
         especie,
-        evolution
+        evolution,
+        error
     }
 }
 

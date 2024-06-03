@@ -15,7 +15,7 @@
     transition: all 0.5s ease 0s;
 }
 
-.cardWrapper>img {
+.cardImage {
     position: absolute;
     right: 0px;
     top: -50px;
@@ -30,7 +30,7 @@
     border-radius: 1rem;
 }
 
-.cardWrapper:hover>img {
+.cardWrapper:hover .cardImage {
     filter: none;
     top: -55px;
 }
@@ -86,5 +86,10 @@
         -webkit-box-align: stretch;
         align-items: stretch;
         gap: 50px;
+    }
+
+    .cardImage {
+        height: 12rem;
+        width: 12rem;
     }
 }

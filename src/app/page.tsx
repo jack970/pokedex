@@ -5,6 +5,7 @@ import usePokemonList from "./hooks/usePokemonList";
 import PokemonList from "@/components/PokemonList";
 import style from './page.module.css'
 import { useState } from "react";
+import { MdCatchingPokemon } from "react-icons/md";
 
 export default function Home() {
   const [search, setSearch] = useState<string>("")
@@ -14,6 +15,7 @@ export default function Home() {
     <>
       <Header value={search} handleChange={setSearch} />
       <div className={style.main}>
+        <MdCatchingPokemon color="#F7F7F7" />
         <h1>Home</h1>
         <PokemonList pokemons={pokemons} />
         {hasMorePokemon ? (

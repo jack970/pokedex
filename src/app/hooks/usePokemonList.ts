@@ -26,7 +26,7 @@ const usePokemonList = (pokemonSearch: string) => {
         if (!dataStorage) {
             const pokemonRepositorio = new PokemonRepositorio()
 
-            const { results } = await pokemonRepositorio.pegarTodos(`/pokemon?limit=750`)
+            const { results } = await pokemonRepositorio.pegarTodos(`/pokemon?limit=1302`)
             localStorage.setItem("pokemons", JSON.stringify(results))
         }
     }
@@ -42,11 +42,12 @@ const usePokemonList = (pokemonSearch: string) => {
 
         const pokemonsFilteredName = dataStorage.filter(
             ({ name }) => name.includes(pokemonSearch.toLowerCase()),
-        );
+        ).slice(0, 9);
 
         const pegarPokemonService = new PegarTodosPokemonsService()
         const listaPokemons = await Promise.all(
-            pokemonsFilteredName.map(async (pokemon) => await pegarPokemonService.indexedPokemonToList(pokemon))
+            pokemonsFilteredName.map(async (pokemon) =>
+                await pegarPokemonService.indexedPokemonToList(pokemon))
         )
 
         setPokemons(listaPokemons)

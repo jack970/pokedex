@@ -9,7 +9,7 @@
     text-align: center;
 }
 
-.cardWrapper>a {
+.cardWrapper a {
     position: relative;
     display: flex;
     width: 220px;

@@ -1,6 +1,6 @@
 import { ReactElement } from "react"
 import { GiFairy, GiFluffyWing, GiGrass, GiGroundSprout, GiHighGrass, GiMetalBar, GiMoon, GiPoison, GiPunchBlast, GiSpikedDragonHead, GiStoneStack } from "react-icons/gi"
-import { FaBug, FaFire, FaGhost, FaLeaf, FaWater } from "react-icons/fa"
+import { FaBug, FaFire, FaGhost, FaLeaf, FaRegSnowflake, FaWater } from "react-icons/fa"
 import { IoIosWater } from "react-icons/io";
 import { TfiControlRecord } from "react-icons/tfi";
 import { SlEnergy } from "react-icons/sl";
@@ -19,31 +19,31 @@ const icons: CardTypeIcon[] = [
     {
         nome: 'fire',
         icon: <FaFire />,
-        color: '#ff0000',
-        background: '#ff000090'
+        color: '#FD7D24',
+        background: '#FFA756'
     },
     {
         nome: 'poison',
         icon: <GiPoison />,
         color: '#9141CB',
-        background: '#9141CB90'
+        background: '#a05fcf'
     },
     {
         nome: 'grass',
         icon: <FaLeaf />,
-        color: '#3FA129',
-        background: '#3FA12990'
+        color: '#5aa749',
+        background: '#83d881'
     },
     {
         nome: 'water',
         icon: <IoIosWater />,
         color: '#2980EF',
-        background: '#2980EF90'
+        background: '#58ABF6'
     }, {
         nome: 'flying',
         icon: <GiFluffyWing />,
         color: '#81B9EF',
-        background: '#81B9EF90'
+        background: '#81B9EF'
     },
     {
         nome: 'normal',
@@ -55,13 +55,13 @@ const icons: CardTypeIcon[] = [
         nome: 'bug',
         icon: <FaBug />,
         color: '#91A119',
-        background: '#91A11990'
+        background: '#b9c465'
     },
     {
         nome: 'ground',
         icon: <GiGroundSprout />,
         color: '#915121',
-        background: '#91512190'
+        background: '#ac7953'
     },
     {
         nome: 'electric',
@@ -79,23 +79,23 @@ const icons: CardTypeIcon[] = [
         nome: 'psychic',
         icon: <BsHypnotize />,
         color: '#EF4179',
-        background: '#EF417990'
+        background: '#e96e95'
     },
     {
         nome: 'fighting',
         icon: <GiPunchBlast />,
         color: '#FF8000',
-        background: '#FF800090'
+        background: '#f5a04b'
     }, {
         nome: 'steel',
         icon: <GiMetalBar />,
         color: '#60A1B8',
-        background: '#60A1B890'
+        background: '#8dabb6'
     }, {
         nome: 'rock',
         icon: <GiStoneStack />,
-        color: '#AAA57F',
-        background: '#AAA57F90'
+        color: '#9e933e',
+        background: '#AAA57F'
     },
     {
         nome: 'dark',
@@ -107,13 +107,19 @@ const icons: CardTypeIcon[] = [
         nome: 'ghost',
         icon: <FaGhost />,
         color: '#556AAE',
-        background: '#8571BE'
+        background: '#6e7cac'
     },
     {
         nome: 'dragon',
         icon: <GiSpikedDragonHead />,
         color: '#0F6AC0',
         background: '#8571BE'
+    },
+    {
+        nome: 'ice',
+        icon: <FaRegSnowflake />,
+        color: '#527da5',
+        background: '#327099'
     },
 ]
 

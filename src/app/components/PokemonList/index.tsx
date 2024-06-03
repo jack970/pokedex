@@ -41,12 +41,18 @@ const PokemonCard = ({ pokemon }: PokemonCardProps) => {
                 </div>
                 <MdCatchingPokemon size={170} opacity={.3} color="white" />
             </div>
-            <Image
-                src={pokemon.sprites.other["official-artwork"].front_default}
-                width={210} height={210}
-                alt="Pokemon"
-                priority
-            />
+            <div className={style.cardImage}>
+                <Image
+                    src={
+                        pokemon.sprites.other["official-artwork"].front_default ||
+                        pokemon.sprites.front_default
+                    }
+                    objectFit="cover"
+                    alt="Pokemon"
+                    fill
+                    priority
+                />
+            </div>
         </Link>
     )
 }
