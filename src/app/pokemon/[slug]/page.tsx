@@ -1,7 +1,7 @@
 'use client'
 
 import { IPokemon } from "@/app/interfaces/pokemon.interface";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import style from './style.module.css'
 import Image from "next/image";
 import Link from "next/link";
@@ -58,7 +58,7 @@ const PokemonDetails = ({ pokemon, color }: PokemonDetailsProps) => {
                     />
                 </div>
                 <div className={style.cardInfo}>
-                    <span className={style.cardId}># {pokemon.id}</span>
+                    <span className={style.cardId}># {`${pokemon.id}`.padStart(3, "0")}</span>
                     <span className={style.cardTitle}>{pokemon.name.replaceAll("-", " ")}</span>
                     <div className={style.cardTypes}>
                         {pokemon.types.map(value => {

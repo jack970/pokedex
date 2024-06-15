@@ -43,7 +43,7 @@ const usePokemonEvolution = (pokemon: IPokemon) => {
                     ...pokemonEvols,
                     image: sprites.other["official-artwork"].front_default ||
                         pokemon.sprites.front_default,
-                    number: `#${'000'.substr(id.toString().length)}${id}`,
+                    number: `#${`${pokemon.id}`.padStart(3, "0")}`,
                 }
             } catch (error) {
                 if (error instanceof Error && error.message === 'Pokemon not found') {

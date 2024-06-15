@@ -28,7 +28,9 @@ const Header = ({ value, handleChange }: SearchProps) => {
                 <Image src="/pokemon-logo.png" height={80} width={160} alt="logo pokedex" />
             </div>
             <div className={style.input}>
-                <FaSearch size={30} />
+                <div className={style.icon}>
+                    <FaSearch size={22} />
+                </div>
                 <input
                     type="text"
                     value={value}
@@ -37,13 +39,17 @@ const Header = ({ value, handleChange }: SearchProps) => {
                     onBlur={onChangeBlur}
                     onFocus={onChangeFocus}
                 />
-                <div
-                    onClick={() => handleChange("")}
-                    className={style.iconClose}>
-                    <IoMdClose size={30} />
-                </div>
+                {
+                    value.length > 0 &&
+                    <div
+                        onClick={() => handleChange("")}
+                        className={style.icon}>
+                        <IoMdClose size={30} />
+                    </div>
+                }
+
             </div>
-        </header>
+        </header >
     )
 }
 

@@ -25,7 +25,7 @@ const PokemonCard = ({ pokemon }: PokemonCardProps) => {
             className={style.cardWrapper}
             style={{ backgroundColor: typeForBg?.background }}>
             <div className={style.cardContent}>
-                <span className={style.cardId}># {pokemon.id}</span>
+                <span className={style.cardId}>#{`${pokemon.id}`.padStart(3, "0")}</span>
                 <span className={style.cardTitle}>{pokemon.name.replaceAll("-", " ")}</span>
                 <div className={style.cardTypes}>
                     {pokemon.types.map(value => {
