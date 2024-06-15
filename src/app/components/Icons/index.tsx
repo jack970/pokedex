@@ -1,11 +1,11 @@
 import { ReactElement } from "react"
-import { GiFairy, GiFluffyWing, GiGrass, GiGroundSprout, GiHighGrass, GiMetalBar, GiMoon, GiPoison, GiPunchBlast, GiSpikedDragonHead, GiStoneStack } from "react-icons/gi"
-import { FaBug, FaFire, FaGhost, FaLeaf, FaRegSnowflake, FaWater } from "react-icons/fa"
+import { GiFairy, GiFluffyWing, GiGroundSprout, GiMetalBar, GiMoon, GiPunch, GiPunchBlast, GiSpikedDragonHead, GiStoneStack } from "react-icons/gi"
+import { FaBug, FaFire, FaGhost, FaLeaf, FaRegSnowflake, FaSkullCrossbones } from "react-icons/fa"
 import { IoIosWater } from "react-icons/io";
 import { TfiControlRecord } from "react-icons/tfi";
 import { SlEnergy } from "react-icons/sl";
 import { BsHypnotize } from "react-icons/bs";
-import { GrHost } from "react-icons/gr";
+import { AiTwotoneEye } from "react-icons/ai";
 
 interface CardTypeIcon {
     nome: string;
@@ -24,7 +24,7 @@ const icons: CardTypeIcon[] = [
     },
     {
         nome: 'poison',
-        icon: <GiPoison />,
+        icon: <FaSkullCrossbones />,
         color: '#9141CB',
         background: '#a05fcf'
     },
@@ -77,13 +77,13 @@ const icons: CardTypeIcon[] = [
     },
     {
         nome: 'psychic',
-        icon: <BsHypnotize />,
+        icon: <AiTwotoneEye />,
         color: '#EF4179',
         background: '#e96e95'
     },
     {
         nome: 'fighting',
-        icon: <GiPunchBlast />,
+        icon: <GiPunch />,
         color: '#FF8000',
         background: '#f5a04b'
     }, {
@@ -113,7 +113,7 @@ const icons: CardTypeIcon[] = [
         nome: 'dragon',
         icon: <GiSpikedDragonHead />,
         color: '#0F6AC0',
-        background: '#8571BE'
+        background: '#7383B9'
     },
     {
         nome: 'ice',

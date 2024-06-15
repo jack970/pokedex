@@ -59,7 +59,7 @@ const PokemonDetails = ({ pokemon, color }: PokemonDetailsProps) => {
                 </div>
                 <div className={style.cardInfo}>
                     <span className={style.cardId}># {pokemon.id}</span>
-                    <span className={style.cardTitle}>{pokemon.name}</span>
+                    <span className={style.cardTitle}>{pokemon.name.replaceAll("-", " ")}</span>
                     <div className={style.cardTypes}>
                         {pokemon.types.map(value => {
                             const { name } = value.type
@@ -104,7 +104,7 @@ export default function PokemonPage({ params }: PokemonPageProps) {
                         <FaChevronLeft size={70} color="white" />
                     </Link>
                     <div className={style.titlePage}>
-                        <h1 style={{ color: background }}>{pokemon.name}</h1>
+                        <h1 style={{ color: background }}>{pokemon.name.replaceAll("-", " ")}</h1>
                     </div>
                     <PokemonDetails pokemon={pokemon} color={color} />
                 </div>

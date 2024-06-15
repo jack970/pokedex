@@ -41,7 +41,9 @@ function ArrowRight({ evolution }: EvolutionCardProps) {
     return (
         <div>
             <FaLongArrowAltRight size={80} opacity={.1} />
-            <p>(Level {evolution.level || 'Vazio'})</p>
+            {evolution.level && (
+                <p>Level {evolution.level}</p>
+            )}
         </div>
     )
 }

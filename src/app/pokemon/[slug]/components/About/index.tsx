@@ -26,6 +26,9 @@ function Weaknesses({ weakness }: WeaknessProps) {
 export default function About({ pokemon }: AboutProps) {
     const { weakness, especies } = useTipoEspecie(pokemon)
 
+    const capitalize = (value: string) => value.charAt(0).toUpperCase() + value.slice(1)
+    const removeHifen = (value: string) => value.replaceAll("-", " ")
+
     return (
         <section className={style.wrapper}>
             <div className={style.content}>
@@ -34,7 +37,7 @@ export default function About({ pokemon }: AboutProps) {
                     <ul className={style.wrapperList}>
                         <li className={style.listItem}>
                             <strong>Species</strong>
-                            <span>{pokemon.species.name}</span>
+                            <span>{capitalize(pokemon.species.name)}</span>
                         </li>
                         <li className={style.listItem}>
                             <strong>Height</strong>
@@ -43,6 +46,11 @@ export default function About({ pokemon }: AboutProps) {
                         <li className={style.listItem}>
                             <strong>Weight</strong>
                             <span>{pokemon.weight} Kg</span>
+                        </li>
+                        <li className={style.listItem}>
+                            <strong>Habilities</strong>
+                            {pokemon.abilities && pokemon.abilities.map(
+                                ({ ability }) => capitalize(removeHifen(ability.name))).join(', ')}
                         </li>
                         <li className={style.listItem}>
                             <strong>Weaknesses</strong>
@@ -68,7 +76,7 @@ export default function About({ pokemon }: AboutProps) {
 
                             <li className={style.listItem}>
                                 <strong>Growth Rate</strong>
-                                <span>{especies.growth_rate.name}</span>
+                                <span>{removeHifen(especies.growth_rate.name)}</span>
                             </li>
                         </ul>
                     </div>
