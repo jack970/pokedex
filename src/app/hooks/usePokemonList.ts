@@ -7,8 +7,15 @@ const usePokemonList = () => {
     const [pokemons, setPokemons] = useState<IPokemon[]>([])
     const [nextUrl, setNextUrl] = useState<string>("/pokemon?offset=9&limit=9")
     const [search, setSearch] = useState<string>(() => {
-        const value = window.localStorage.getItem("search") || ""
-        return value
+        if (typeof window === 'undefined') {
+            return "";
+        }
+        try {
+            const value = window.localStorage.getItem("search") || ""
+            return value
+        } catch (error) {
+            return ""
+        }
     })
 
 

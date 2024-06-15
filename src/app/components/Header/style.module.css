@@ -34,3 +34,9 @@
     outline: none;
     border: none;
 }
+
+.iconClose {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}

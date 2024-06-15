@@ -60,7 +60,7 @@ const usePokemonEvolution = (pokemon: IPokemon) => {
             };
         }
         ))
-    }, [])
+    }, [pokemon])
 
     const fetchPokemon = useCallback(async (pokemon: IPokemon) => {
         const speciesService = new PegarEspecieService()

@@ -4,6 +4,7 @@ import Image from "next/image";
 import style from './style.module.css'
 import { FaSearch } from "react-icons/fa";
 import { useCallback, useState } from "react";
+import { IoMdClose } from "react-icons/io";
 
 interface SearchProps {
     value: string,
@@ -36,6 +37,11 @@ const Header = ({ value, handleChange }: SearchProps) => {
                     onBlur={onChangeBlur}
                     onFocus={onChangeFocus}
                 />
+                <div
+                    onClick={() => handleChange("")}
+                    className={style.iconClose}>
+                    <IoMdClose size={30} />
+                </div>
             </div>
         </header>
     )
