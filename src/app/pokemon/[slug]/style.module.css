@@ -11,7 +11,6 @@
     left: 0px;
     right: 0px;
     top: 0px;
-    z-index: 2;
 }
 
 .titlePage h1 {
@@ -110,7 +109,7 @@
     font-size: 2.5rem;
     cursor: pointer;
     text-transform: capitalize;
-    /* font-weight: bold; */
+    z-index: 1;
     color: #fff;
 }
 
