@@ -48,8 +48,9 @@ const PokemonDetails = ({ pokemon, color }: PokemonDetailsProps) => {
                 <div className={style.cardImage}>
                     <Image
                         src={
-                            pokemon.sprites.other["official-artwork"].front_default ||
-                            pokemon.sprites.front_default
+                            pokemon.sprites?.other["official-artwork"].front_default ??
+                            pokemon.sprites?.front_default ??
+                            "/default.png"
                         }
                         alt="Pokemon"
                         objectFit="cover"
